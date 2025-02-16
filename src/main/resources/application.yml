@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: rabbit-spring
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: springboot
+    queue:
+      name: spring-boot-queue
+    json:
+      queue:
+        name: spring-boot-json-queue
+    exchange:
+      name: spring-boot-exchange
+      routing-key: spring-boot-routing-key
+      json:
+        routing-key: spring-boot-json-routing-key
+
+  output:
+    ansi:
+      enabled: always
+
