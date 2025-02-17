@@ -1,5 +1,6 @@
 package com.vaibhav.rabbit_spring.subscriber;
 
+import com.vaibhav.rabbit_spring.dto.JsonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -19,17 +20,13 @@ public class Subscriber {
         }
     }
 
-    //can we add delay in receiving the message
-    // @RabbitListener(queues = "${spring.rabbitmq.queue.name}")
-    // public void receiveMessage(String message) {
-    //     log.info("[Received message]: " + message);
-    //     try {
-    //         Thread.sleep(5000);
-    //     } catch (InterruptedException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
-
-
+    @RabbitListener(queues = "${spring.rabbitmq.json.queue.name}")
+    public void receiveJsonMessage(JsonMessage message) {
+        try {
+            Thread.sleep(5000);
+            log.info("[Received JSON message]: " + message);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -28,7 +28,7 @@ public class JsonProducer {
     }
 
     public void jsonMessage(JsonMessage message) {
-        log.info("[Sending message] -> to the RabbitMQ Queue");
+        log.info("[Sending JSON message] -> to the RabbitMQ Queue");
         rabbitTemplate.convertAndSend(exchangeName, routingKey, message);
     }
 }
