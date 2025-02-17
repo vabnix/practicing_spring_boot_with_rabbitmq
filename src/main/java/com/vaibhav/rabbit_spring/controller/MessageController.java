@@ -13,6 +13,7 @@ public class MessageController {
     @Autowired
     private final Producer producer;
 
+    @Autowired
     private final JsonProducer jsonProducer;
 
     public MessageController(Producer producer, JsonProducer jsonProducer) {

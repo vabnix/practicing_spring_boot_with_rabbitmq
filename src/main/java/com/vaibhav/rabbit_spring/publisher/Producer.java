@@ -1,9 +1,9 @@
 package com.vaibhav.rabbit_spring.publisher;
 
-import com.vaibhav.rabbit_spring.dto.JsonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,8 @@ public class Producer {
     @Value("${spring.rabbitmq.exchange.routing-key}")
     private String routingKey;
 
-    @Value("${spring.rabbitmq.queue.name}")
-    private String queueName;
-
     @Autowired
+    @Qualifier("customRabbitTemplate")
     private final RabbitTemplate rabbitTemplate;
 
     public Producer(RabbitTemplate rabbitTemplate) {

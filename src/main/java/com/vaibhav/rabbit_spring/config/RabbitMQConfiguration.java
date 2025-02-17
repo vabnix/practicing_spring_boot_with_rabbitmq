@@ -1,7 +1,6 @@
 package com.vaibhav.rabbit_spring.config;
 
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -57,14 +56,6 @@ public class RabbitMQConfiguration {
                 .with(jsonRoutingKey);
     }
 
-    //connection factory
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
-        connectionFactory.setUsername("guest");
-        connectionFactory.setPassword("springboot");
-        return connectionFactory;
-    }
-
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
@@ -73,9 +64,9 @@ public class RabbitMQConfiguration {
 
 
     //rabbit template
-    @Bean
-    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-       RabbitTemplate jsonRabbitTemplate = new RabbitTemplate(connectionFactory());
+    @Bean("customRabbitTemplate")
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+       RabbitTemplate jsonRabbitTemplate = new RabbitTemplate(connectionFactory);
         jsonRabbitTemplate.setMessageConverter(jsonMessageConverter());
         return jsonRabbitTemplate;
     }
